@@ -26,17 +26,17 @@ body {
 
 body {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 4rem;
-}
-
-.container {
-  display: flex;
   flex-direction: column;
-  gap: 3rem;
+  padding: 4rem;
+  background-color: rgb(141, 236, 180);
+  color: gray;
+  font-size: 2rem;
+  height: 100vh;
 }
 
+.order {
+  text-align: center;
+}
 .order-meal {
   display: flex;
   flex-direction: column;
@@ -49,17 +49,48 @@ body {
   font-size: 2.5rem;
 }
 
-.order-meal button {
+button {
   background-color: rgb(20, 30, 70);
-  color: antiquewhite;
+  color: #fff;
   padding: 1.2rem 2.2rem;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  width: 20%;
+  margin-top: 1.5rem;
 }
 
 .order-meal button:hover {
   color: rgb(20, 30, 70);
   background-color: antiquewhite;
   border: 1px solid rgb(20, 30, 70);
+}
+
+/* Styling the container */
+#food-meal {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  /* border: 1px solid blue; */
+}
+
+#meal-recipe {
+  padding: 2rem;
+  grid-column: 2/3;
+  /* border: 1px solid red; */
+}
+
+#meal-ingredients {
+  padding: 2rem;
+  grid-column: 1/2;
+  grid-row: 1/-1;
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+#meal-ingredients img {
+  width: 80%;
 }

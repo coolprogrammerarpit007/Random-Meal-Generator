@@ -54,6 +54,8 @@ const generateIngredients = function (ing, measure) {
   const list = document.createElement(`ul`);
   const listTitlle = document.createElement(`h3`);
   list.append(listTitlle);
+
+  // Generating List Ingredients
   ing.forEach((item, i) => {
     let li = document.createElement(`li`);
     li.textContent = `${item} - ${measure[i]}`;
@@ -65,27 +67,34 @@ const generateIngredients = function (ing, measure) {
 // Generating Youtube Recipe
 const videoRecipe = function (url) {
   // Generating youtube video
-  const iframe = document.createElement(`iframe`);
-  iframe.setAttribute(`referrerpolicy`, `strict-origin-when-cross-origin`);
-  iframe.src = url;
-  console.log(iframe);
-  mealIngredients.append(iframe);
+  mealIngredients.innerHTML = `<iframe
+    width="560"
+    height="315"
+    src = ${url}
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  >
+  </iframe>`;
 };
 
 // Fetching URL and generating a random meal
 const randomMeal = async () => {
-  foodMeal.textContent = ``;
-  mealRecipe.textContent = ``;
-  mealIngredients.textContent = ``;
   // Ingredients Array
   const inngredientArr = [];
   // Measurment Array
   const measureArray = [];
 
   // ************************
+
+  // Requesting to the external API
   let response = await fetch(requestURL);
   let data = await response.json();
   console.log(data);
+
+  // Storing JSON DATA
   let meaLName = data.meals[0].strMeal;
   let mealCategory = data.meals[0].strCategory;
   let mealArea = data.meals[0].strArea;
@@ -93,6 +102,8 @@ const randomMeal = async () => {
   let mealImgURL = data.meals[0].strMealThumb;
   let uTubeUrl = data.meals[0].strYoutube;
   console.log(uTubeUrl);
+
+  // Storing multiple Ingredients into array
   // Storing Ingredients Array
   for (let i = 0; i < 20; i++) {
     if (!data.meals[0][`strIngredient${i + 1}`]) {
@@ -119,11 +130,19 @@ const randomMeal = async () => {
 
   // Generating a video recipe
 
-  videoRecipe(uTubeUrl);
+  // videoRecipe(uTubeUrl);
 };
 
 // Adding Event listener to meal button
-mealBtn.addEventListener(`click`, randomMeal);
+mealBtn.addEventListener(`click`, () => {
+  // Removing/ Emptying conatiners
+  mealIngredients.innerHTML = ``;
+  mealRecipe.innerHTML = ``;
+  uTube.innerHTML = ``;
+
+  // Executing the random meal function
+  randomMeal();
+});
 
 // fetch(requestURL)
 //   .then((response) => response.json())
